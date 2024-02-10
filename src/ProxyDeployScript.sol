@@ -33,10 +33,7 @@ contract ProxyDeployScript is Script {
         proxy = vm.computeCreate2Address(salt, keccak256(bytecode));
 
         if (proxy.code.length == 0) {
-            assembly {
-                proxy := create2(0, add(bytecode, 0x20), mload(bytecode), salt)
-                if iszero(extcodesize(proxy)) { revert(0, 0) }
-            }
+            new TransparentUpgradeableProxy{salt: salt}(EMPTY_ADDRESS, sender, "");
         }
 
         ProxyAdmin proxyAdmin = ProxyAdmin(address(uint160(uint256(vm.load(proxy, ERC1967Utils.ADMIN_SLOT)))));
