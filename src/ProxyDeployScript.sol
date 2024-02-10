@@ -14,11 +14,25 @@ import {Empty} from "./Empty.sol";
 contract ProxyDeployScript is Script {
     address public immutable EMPTY_ADDRESS = address(new Empty{salt: 0}());
 
+    function deployOrUpgradeProxy(address proxyOwner, address implementation)
+        public
+        returns (address)
+    {
+        return deployOrUpgradeProxy(proxyOwner, implementation, "", bytes32(0));
+    }
+
     function deployOrUpgradeProxy(address proxyOwner, address implementation, bytes memory data)
         public
         returns (address)
     {
         return deployOrUpgradeProxy(proxyOwner, implementation, data, bytes32(0));
+    }
+
+    function deployOrUpgradeProxy(address proxyOwner, address implementation, bytes32 salt)
+        public
+        returns (address)
+    {
+        return deployOrUpgradeProxy(proxyOwner, implementation, "", salt);
     }
 
     function deployOrUpgradeProxy(address proxyOwner, address implementation, bytes memory data, bytes32 salt)

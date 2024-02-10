@@ -20,7 +20,7 @@ contract ProxyDeployScriptTest is Test, ProxyDeployScript{
         TestContract tst = new TestContract();
 
         vm.startPrank(BOB);
-        address proxy = deployOrUpgradeProxy(address(admin), address(tst), "");
+        address proxy = deployOrUpgradeProxy(address(admin), address(tst), bytes(""));
         vm.stopPrank();
 
         assertTrue(TestContract(proxy).test());
