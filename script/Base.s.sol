@@ -16,7 +16,7 @@ abstract contract BaseScript is Script {
     mapping(string => address) public deployment;
 
     function setUp() public {
-        uint256 privateKey = vm.envUint("PRIVATE_KEY");
+        uint256 privateKey = vm.envUint(string.concat("PRIVATE_KEY_", vm.toString(block.chainid)));
         deployer = vm.rememberKey(privateKey);
         loadConfig();
     }
@@ -51,7 +51,7 @@ abstract contract BaseScript is Script {
         deployment[name] = addr;
 
         if (addr.code.length == 0) {
-            require(deployIfMissing, string.concat('MISSING_CONTRACT_', name));
+            require(deployIfMissing, string.concat("MISSING_CONTRACT_", name));
 
             bytes memory bytecode = abi.encodePacked(vm.getCode(name), args);
             bytes32 salt = config.salt;
@@ -70,6 +70,6 @@ abstract contract BaseScript is Script {
 
         string memory key = string.concat(".", vm.toString(block.chainid));
 
-//        config.salt = bytes32(json.readUint(string.concat(key, ".salt")));
+        //        config.salt = bytes32(json.readUint(string.concat(key, ".salt")));
     }
 }

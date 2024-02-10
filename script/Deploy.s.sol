@@ -13,7 +13,10 @@ contract DeployScript is BaseScript {
     function run() public {
         vm.startBroadcast(deployer);
 
-        new ProxyAdmin{salt: config.salt}(config.owner);
+        deploy("Empty.sol");
+
+        //        ProxyAdmin proxyAdmin = new ProxyAdmin{salt: config.salt}(config.owner);
+        //        deployment["ProxyAdmin.sol"] = address(proxyAdmin);
 
         vm.stopBroadcast();
     }
