@@ -1,0 +1,42 @@
+{
+  "name": "@kei.fi/contracts-template",
+  "version": "0.0.1",
+  "author": "KEI finance",
+  "license": "UNLICENSED",
+  "exports": {
+    "./typechain/ethers-v6": {
+      "import": "./typechain/ethers-v6/index.js",
+      "require": "./typechain/ethers-v6/index.js",
+      "typings": "./typechain/ethers-v6/index.d.ts"
+    },
+    "./typechain/ethers-v5": {
+      "import": "./typechain/ethers-v5/index.js",
+      "require": "./typechain/ethers-v5/index.js",
+      "typings": "./typechain/ethers-v5/index.d.ts"
+    },
+    "./deployments.json": {
+      "import": "./deployments.json",
+      "require": "./deployments.json"
+    }
+  },
+  "scripts": {
+    "deploy": "forge script script/Deploy.s.sol:DeployScript --broadcast --verify -vvvv --rpc-url",
+    "deploy:resume": "forge script script/Deploy.s.sol:DeployScript --broadcast --verify --resume -vvvv --rpc-url",
+    "compile": "(tsc > /dev/null 2>&1 || true)",
+    "typechain:clean": "rm -rf typechain",
+    "typechain:v5": "typechain --target ethers-v6 --out-dir typechain/ethers-v6 \"./out/**/*.json\" --show-stack-traces",
+    "typechain:v6": "typechain --target ethers-v5 --out-dir typechain/ethers-v5 \"./out/**/*.json\" --show-stack-traces",
+    "typechain": "pnpm typechain:clean && pnpm typechain:v5 && pnpm typechain:v6 && pnpm compile",
+    "prepublish": "forge clean && forge install && forge build && pnpm typechain && forge-utils deployments"
+  },
+  "devDependencies": {
+    "@typechain/ethers-v5": "^11.1.2",
+    "@typechain/ethers-v6": "^0.5.1",
+    "forge-utils": "^0.1.1",
+    "typechain": "^8.3.2",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "ethers": ">=5.0.0"
+  }
+}
