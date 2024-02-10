@@ -12,7 +12,7 @@ import {
 import {Empty} from "./Empty.sol";
 
 contract ProxyDeployScript is Script {
-    address public immutable EMPTY_ADDRESS = address(new Empty{salt: 0}());
+    address public immutable EMPTY_ADDRESS = 0x18c5C895e010796da8903b3469138615d9Ae1c2a;
 
     function deployOrUpgradeProxy(string memory name, address proxyOwner, address implementation)
         public
