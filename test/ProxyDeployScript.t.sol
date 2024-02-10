@@ -11,17 +11,18 @@ contract TestContract {
     }
 }
 
-contract ProxyDeployScriptTest is Test, ProxyDeployScript{
-
+contract ProxyDeployScriptTest is Test, ProxyDeployScript {
     address public BOB = makeAddr("BOB");
 
     function test_success() public {
-        ProxyAdmin admin = new ProxyAdmin(address(this));
         TestContract tst = new TestContract();
 
-        vm.startPrank(BOB);
-        address proxy = deployOrUpgradeProxy(address(admin), address(tst), bytes(""));
-        vm.stopPrank();
+        vm.startBroadcast(BOB);
+        address proxy = deployOrUpgradeProxy("Test", BOB, address(tst));
+        address proxy2 = deployOrUpgradeProxy("Test", BOB, address(tst));
+        vm.stopBroadcast();
+
+        assertEq(proxy, proxy2);
 
         assertTrue(TestContract(proxy).test());
     }

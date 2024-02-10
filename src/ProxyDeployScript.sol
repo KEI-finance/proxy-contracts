@@ -14,32 +14,18 @@ import {Empty} from "./Empty.sol";
 contract ProxyDeployScript is Script {
     address public immutable EMPTY_ADDRESS = address(new Empty{salt: 0}());
 
-    function deployOrUpgradeProxy(address proxyOwner, address implementation)
+    function deployOrUpgradeProxy(string memory name, address proxyOwner, address implementation)
         public
         returns (address)
     {
-        return deployOrUpgradeProxy(proxyOwner, implementation, "", bytes32(0));
+        return deployOrUpgradeProxy(name, proxyOwner, implementation, "");
     }
 
-    function deployOrUpgradeProxy(address proxyOwner, address implementation, bytes memory data)
-        public
-        returns (address)
-    {
-        return deployOrUpgradeProxy(proxyOwner, implementation, data, bytes32(0));
-    }
-
-    function deployOrUpgradeProxy(address proxyOwner, address implementation, bytes32 salt)
-        public
-        returns (address)
-    {
-        return deployOrUpgradeProxy(proxyOwner, implementation, "", salt);
-    }
-
-    function deployOrUpgradeProxy(address proxyOwner, address implementation, bytes memory data, bytes32 salt)
+    function deployOrUpgradeProxy(string memory name, address proxyOwner, address implementation, bytes memory data)
         public
         returns (address proxy)
     {
-
+        bytes32 salt = keccak256(bytes(name));
         (, address sender,) = vm.readCallers();
         bytes memory creationCode = type(TransparentUpgradeableProxy).creationCode;
         bytes memory bytecode = abi.encodePacked(creationCode, abi.encode(EMPTY_ADDRESS, sender, ""));
