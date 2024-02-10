@@ -8,6 +8,7 @@ abstract contract BaseScript is Script {
 
     struct DeployConfig {
         bytes32 salt;
+        address owner;
     }
 
     address public deployer;
