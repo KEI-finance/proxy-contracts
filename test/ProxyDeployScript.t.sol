@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import {Test} from "forge-std/Test.sol";
 
-import {ProxyDeployScript, ProxyAdmin} from "../src/ProxyDeployScript.sol";
+import {ProxyDeployScript, ProxyAdmin, Empty} from "../src/ProxyDeployScript.sol";
 
 contract TestContract {
     function test() external pure returns (bool) {
@@ -13,6 +13,11 @@ contract TestContract {
 
 contract ProxyDeployScriptTest is Test, ProxyDeployScript {
     address public BOB = makeAddr("BOB");
+
+    constructor() {
+        Empty empty = new Empty();
+        vm.etch(EMPTY_ADDRESS, address(empty).code);
+    }
 
     function test_success() public {
         TestContract tst = new TestContract();
