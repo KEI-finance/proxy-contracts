@@ -38,7 +38,7 @@ contract ProxyDeployScript is Script {
      * @param proxyOwner the owner of the proxy
      * @param implementation the implementation of the proxy
      * @param data the initialization data for the proxy
-     * @return the address of the proxy
+     * @return proxy the address of the proxy
      */
     function deployOrUpgradeProxy(string memory name, address proxyOwner, address implementation, bytes memory data)
         public
