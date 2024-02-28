@@ -11,9 +11,20 @@ import {
 } from "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
 import {Empty} from "./Empty.sol";
 
+/**
+ * @title ProxyDeployScript
+ * @dev Contract for deploying or upgrading Proxy script using OpenZeppelin libraries
+ */
 contract ProxyDeployScript is Script {
     address public immutable EMPTY_ADDRESS = 0x18c5C895e010796da8903b3469138615d9Ae1c2a;
 
+    /**
+     * @dev deploys or upgrades a proxy
+     * @param name the name of the proxy
+     * @param proxyOwner the owner of the proxy
+     * @param implementation the implementation of the proxy
+     * @return the address of the proxy
+     */
     function deployOrUpgradeProxy(string memory name, address proxyOwner, address implementation)
         public
         returns (address)
@@ -21,6 +32,14 @@ contract ProxyDeployScript is Script {
         return deployOrUpgradeProxy(name, proxyOwner, implementation, "");
     }
 
+     /**
+     * @dev deploys or upgrades a proxy with initial data
+     * @param name the name of the proxy
+     * @param proxyOwner the owner of the proxy
+     * @param implementation the implementation of the proxy
+     * @param data the initialization data for the proxy
+     * @return the address of the proxy
+     */
     function deployOrUpgradeProxy(string memory name, address proxyOwner, address implementation, bytes memory data)
         public
         returns (address proxy)
