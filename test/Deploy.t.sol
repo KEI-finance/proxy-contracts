@@ -7,6 +7,12 @@ import {BaseTest} from "@kei.fi/testing-lib/BaseTest.sol";
 import {DeployScript} from "script/Deploy.s.sol";
 
 contract DeployTest is BaseTest, DeployScript {
+    function setUp() public virtual override {
+        super.setUp();
+    }
+}
+
+contract DeployTest__run is DeployTest {
     struct ExpectDeployment {
         string name;
         address addr;
@@ -16,12 +22,13 @@ contract DeployTest is BaseTest, DeployScript {
 
     function setUp() public virtual override {
         super.setUp();
+
         // forge test network
-        expected[31337].push(ExpectDeployment("AccountSetup.sol", 0x0000000000000000000000000000000000000000));
+        expected[31337].push(ExpectDeployment("Counter.sol", 0x0000000000000000000000000000000000000000));
         // abitrum network
-        expected[42161].push(ExpectDeployment("AccountSetup.sol", 0x0000000000000000000000000000000000000000));
+        expected[42161].push(ExpectDeployment("Counter.sol", 0x0000000000000000000000000000000000000000));
         // sepolia network
-        expected[11155111].push(ExpectDeployment("AccountSetup.sol", 0x0000000000000000000000000000000000000000));
+        expected[11155111].push(ExpectDeployment("Counter.sol", 0x0000000000000000000000000000000000000000));
     }
 
     function assert_deployments() public {
@@ -46,7 +53,6 @@ contract DeployTest is BaseTest, DeployScript {
     function test_deploy() external {
         console.log(block.chainid);
         run();
-
         assert_deployments();
     }
 }
