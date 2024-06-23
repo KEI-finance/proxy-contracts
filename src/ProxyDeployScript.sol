@@ -32,7 +32,15 @@ contract ProxyDeployScript is Script {
         return deployOrUpgradeProxy(name, proxyOwner, implementation, "");
     }
 
-     /**
+    function getProxyAddress(string memory name) public returns (address proxy) {
+        bytes32 salt = keccak256(bytes(name));
+        (, address sender,) = vm.readCallers();
+        bytes memory creationCode = type(TransparentUpgradeableProxy).creationCode;
+        bytes memory bytecode = abi.encodePacked(creationCode, abi.encode(EMPTY_ADDRESS, sender, ""));
+        proxy = computeCreate2Address(salt, keccak256(bytecode));
+    }
+
+    /**
      * @dev deploys or upgrades a proxy with initial data
      * @param name the name of the proxy
      * @param proxyOwner the owner of the proxy
