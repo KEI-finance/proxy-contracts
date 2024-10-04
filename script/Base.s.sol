@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+pragma solidity =0.8.20;
 
 import {Script, console2, stdJson} from "forge-std/Script.sol";
 
@@ -67,7 +67,7 @@ abstract contract BaseScript is Script {
         }
     }
 
-    function loadConfig() internal {
+    function loadConfig() internal virtual {
         string memory root = vm.projectRoot();
         string memory path = string.concat(root, "/config.json");
         string memory json = vm.readFile(path);
