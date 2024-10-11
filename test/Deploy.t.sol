@@ -24,11 +24,11 @@ contract DeployTest__run is DeployTest {
         super.setUp();
 
         // forge test network
-        expected[31337].push(ExpectDeployment("Counter.sol", 0x0000000000000000000000000000000000000000));
+        expected[31337].push(ExpectDeployment("Counter", 0xBe7AC52D4e460b465cdd8ff939275Df60Ee17483));
         // abitrum network
-        expected[42161].push(ExpectDeployment("Counter.sol", 0x0000000000000000000000000000000000000000));
+        expected[42161].push(ExpectDeployment("Counter", 0x0000000000000000000000000000000000000000));
         // sepolia network
-        expected[11155111].push(ExpectDeployment("Counter.sol", 0x0000000000000000000000000000000000000000));
+        expected[11155111].push(ExpectDeployment("Counter", 0x0000000000000000000000000000000000000000));
     }
 
     function assert_deployments() public {
@@ -51,7 +51,6 @@ contract DeployTest__run is DeployTest {
     }
 
     function test_deploy() external {
-        console.log(block.chainid);
         run();
         assert_deployments();
     }

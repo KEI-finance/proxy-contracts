@@ -14,6 +14,15 @@ abstract contract BaseScript is Script {
     DeployConfig internal config;
     mapping(string => address) public deployment;
 
+    modifier record() {
+        vm.startBroadcast(deployer);
+
+        _;
+
+        // only record deployments on non testnets
+        vm.stopBroadcast();
+    }
+
     function setUp() public virtual {
         uint256 privateKey;
         if (block.chainid == 31337) {
@@ -39,18 +48,30 @@ abstract contract BaseScript is Script {
     }
 
     function deploy(string memory name) internal returns (address addr) {
-        return deploy(name, "", true);
+        return deploy(name, "", true, config.salt);
+    }
+
+    function deploy(string memory name, bytes32 salt) internal returns (address addr) {
+        return deploy(name, "", true, salt);
     }
 
     function deploy(string memory name, bool deployIfMissing) internal returns (address addr) {
-        return deploy(name, "", deployIfMissing);
+        return deploy(name, "", deployIfMissing, config.salt);
+    }
+
+    function deploy(string memory name, bool deployIfMissing, bytes32 salt) internal returns (address addr) {
+        return deploy(name, "", deployIfMissing, salt);
     }
 
     function deploy(string memory name, bytes memory args) internal returns (address addr) {
-        return deploy(name, args, true);
+        return deploy(name, args, true, config.salt);
     }
 
-    function deploy(string memory name, bytes memory args, bool deployIfMissing) internal returns (address addr) {
+    function deploy(string memory name, bytes memory args, bytes32 salt) internal returns (address addr) {
+        return deploy(name, args, true, salt);
+    }
+
+    function deploy(string memory name, bytes memory args, bool deployIfMissing, bytes32 salt) internal returns (address addr) {
         addr = getAddress(name, args);
         deployment[name] = addr;
 
@@ -58,7 +79,6 @@ abstract contract BaseScript is Script {
             require(deployIfMissing, string.concat('MISSING_CONTRACT_', name));
 
             bytes memory bytecode = abi.encodePacked(vm.getCode(name), args);
-            bytes32 salt = config.salt;
 
             assembly {
                 addr := create2(0, add(bytecode, 0x20), mload(bytecode), salt)
