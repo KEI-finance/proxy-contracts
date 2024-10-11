@@ -29,11 +29,18 @@ contract ProxyDeployScript is Script {
         public
         returns (address)
     {
-        return deployOrUpgradeProxy(name, proxyOwner, implementation, "");
+        return deployOrUpgradeProxy(keccak256(bytes(name)), proxyOwner, implementation);
+    }
+
+    function deployOrUpgradeProxy(bytes32 salt, address proxyOwner, address implementation) public returns (address) {
+        return deployOrUpgradeProxy(salt, proxyOwner, implementation, "");
     }
 
     function getProxyAddress(string memory name) public returns (address proxy) {
-        bytes32 salt = keccak256(bytes(name));
+        return getProxyAddress(keccak256(bytes(name)));
+    }
+
+    function getProxyAddress(bytes32 salt) public returns (address proxy) {
         (, address sender,) = vm.readCallers();
         bytes memory creationCode = type(TransparentUpgradeableProxy).creationCode;
         bytes memory bytecode = abi.encodePacked(creationCode, abi.encode(EMPTY_ADDRESS, sender, ""));
@@ -48,7 +55,7 @@ contract ProxyDeployScript is Script {
      * @param data the initialization data for the proxy
      * @return proxy the address of the proxy
      */
-    function deployOrUpgradeProxy(string memory name, address proxyOwner, address implementation, bytes memory data)
+    function deployOrUpgradeProxy(bytes32 salt, address proxyOwner, address implementation, bytes memory data)
         public
         returns (address proxy)
     {
