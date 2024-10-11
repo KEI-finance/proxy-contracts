@@ -28,7 +28,7 @@ abstract contract BaseScript is Script {
         if (block.chainid == 31337) {
             (, privateKey) = makeAddrAndKey("DEPLOYER");
         } else {
-            privateKey = vm.envUint(string.concat("PRIVATE_KEY_", vm.toString(block.chainid)));
+            privateKey = vm.envUint(string.concat("PRIVATE_KEY"));
         }
         deployer = vm.rememberKey(privateKey);
         loadConfig();
@@ -103,12 +103,14 @@ abstract contract BaseScript is Script {
         string memory path = string.concat(root, "/config.json");
         string memory json = vm.readFile(path);
 
-        string memory key = string.concat(".", vm.toString(block.chainid));
+        string memory key = string.concat(".", vm.envString("ENV"), ".", vm.toString(block.chainid));
+
+        console2.log(key);
 
         if (!vm.keyExists(json, key)) {
-            key = string.concat(".11155111"); // use sepolia as a fallback
+            key = ".develop.11155111"; // use sepolia as a fallback
         }
 
-        //        config.salt = bytes32(json.readUint(string.concat(key, ".salt")));
+        config.salt = bytes32(json.readUint(string.concat(key, ".salt")));
     }
 }
