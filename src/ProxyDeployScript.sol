@@ -49,7 +49,7 @@ contract ProxyDeployScript is Script {
 
     /**
      * @dev deploys or upgrades a proxy with initial data
-     * @param name the name of the proxy
+     * @param salt the salt for the proxy
      * @param proxyOwner the owner of the proxy
      * @param implementation the implementation of the proxy
      * @param data the initialization data for the proxy
@@ -59,7 +59,6 @@ contract ProxyDeployScript is Script {
         public
         returns (address proxy)
     {
-        bytes32 salt = keccak256(bytes(name));
         (, address sender,) = vm.readCallers();
         bytes memory creationCode = type(TransparentUpgradeableProxy).creationCode;
         bytes memory bytecode = abi.encodePacked(creationCode, abi.encode(EMPTY_ADDRESS, sender, ""));

@@ -19,8 +19,8 @@ contract ProxyDeployScriptTest is Test, ProxyDeployScript, ProxyDeployTest {
         TestContract tst = new TestContract();
 
         vm.startBroadcast(BOB);
-        address proxy = deployOrUpgradeProxy("Test", BOB, address(tst));
-        address proxy2 = deployOrUpgradeProxy("Test", BOB, address(tst));
+        address proxy = deployOrUpgradeProxy(string("Test"), BOB, address(tst));
+        address proxy2 = deployOrUpgradeProxy(string("Test"), BOB, address(tst));
         vm.stopBroadcast();
 
         assertEq(proxy, proxy2);
