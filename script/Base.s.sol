@@ -39,12 +39,20 @@ abstract contract BaseScript is Script {
     }
 
     function getAddress(string memory name) internal view returns (address) {
-        return getAddress(name, "");
+        return getAddress(name, "", config.salt);
+    }
+
+    function getAddress(string memory name, bytes32 salt) internal view returns (address) {
+        return getAddress(name, "", salt);
     }
 
     function getAddress(string memory name, bytes memory args) internal view returns (address) {
+        return getAddress(name, args, config.salt);
+    }
+
+    function getAddress(string memory name, bytes memory args, bytes32 salt) internal view returns (address) {
         bytes32 hash = hashInitCode(vm.getCode(name), args);
-        return vm.computeCreate2Address(config.salt, hash);
+        return vm.computeCreate2Address(salt, hash);
     }
 
     function deploy(string memory name) internal returns (address addr) {
@@ -75,7 +83,7 @@ abstract contract BaseScript is Script {
         internal
         returns (address addr)
     {
-        addr = getAddress(name, args);
+        addr = getAddress(name, args, salt);
         deployment[name] = addr;
 
         if (addr.code.length == 0) {
