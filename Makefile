@@ -38,7 +38,7 @@ deploy-tag:
 	forge-utils append-meta --meta.env $(ENV) --new-files
 	git reset
 	git add broadcast
-	git commit -m "[deployment] to $(CHAIN) in $(ENV) environment"
+	git commit -m "🚀🔥 DEPLOYED: $(CHAIN) network, $(ENV) environment 🌍💥"
 
 # Clean TypeChain artifacts
 typechain-clean:
