@@ -61,6 +61,7 @@ typechain: typechain-clean typechain-v6 typechain-v5
 # Prepare for publishing
 setup:
 	@echo "Setting up the project..."
+	pnpm install
 	forge clean
 	forge install
 	forge build
