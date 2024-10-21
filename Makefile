@@ -55,8 +55,12 @@ typechain-v5:
 	@echo "Generating TypeChain bindings for ethers-v5..."
 	npx typechain --target ethers-v5 --out-dir typechain/ethers-v5 "./out/**/*.json" --show-stack-traces
 
+clean-typechain-bytecode:
+	@echo "Cleaning TypeChain bytecode..."
+	forge-utils clean-typechain-bytecode
+
 # Generate all TypeChain bindings
-typechain: typechain-clean typechain-v6 typechain-v5
+typechain: typechain-clean typechain-v6 typechain-v5 clean-typechain-bytecode
 
 # Prepare for publishing
 setup:
@@ -67,7 +71,6 @@ setup:
 	forge build
 	$(MAKE) typechain
 	forge-utils deployments
-	forge-utils clean-typechain-bytecode
 	git add deployments.json
 
 # Clean build artifacts
