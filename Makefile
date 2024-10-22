@@ -19,7 +19,11 @@ ifneq (,$(wildcard secrets/secrets.$(ENV).env))
 endif
 
 # Phony targets
-.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync
+.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync compile
+
+compile:
+	@echo "Compiling contracts..."
+	npx tsc >> /dev/null || true
 
 # Deploy to selected chain and environment
 deploy:
@@ -71,6 +75,7 @@ setup:
 	forge install
 	forge build --skip script test
 	$(MAKE) typechain
+	$(MAKE) compile
 	forge-utils deployments
 	git add deployments.json
 
@@ -114,6 +119,7 @@ help:
 	@echo "  typechain-v6   - Generate TypeChain bindings for ethers-v6"
 	@echo "  clean          - Clean build artifacts"
 	@echo "  setup          - Setup the project"
+	@echo "  compile        - Compile contracts"
 	@echo "  test           - Run tests"
 	@echo "  print-env      - Print current environment variables"
 	@echo "  sync           - Sync with template/master"
