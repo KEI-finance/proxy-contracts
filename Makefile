@@ -19,7 +19,18 @@ ifneq (,$(wildcard secrets/secrets.$(ENV).env))
 endif
 
 # Phony targets
-.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync compile
+.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync compile etherscan-api-key
+
+etherscan-api-key:
+	@if [ "$(CHAIN)" = "arbitrum" ] || [ "$(CHAIN)" = "arbitrum_sepolia" ]; then \
+		echo "$(ARB_ETHERSCAN_API_KEY)"; \
+	elif [ "$(CHAIN)" = "polygon" ] || [ "$(CHAIN)" = "polygon_sepolia" ]; then \
+		echo "$(POLYGON_ETHERSCAN_API_KEY)"; \
+	elif [ "$(CHAIN)" = "bsc" ]; then \
+		echo "$(BSC_ETHERSCAN_API_KEY)"; \
+	else \
+		echo "$(ETHERSCAN_API_KEY)"; \
+	fi
 
 compile:
 	@echo "Compiling contracts..."
@@ -28,13 +39,13 @@ compile:
 # Deploy to selected chain and environment
 deploy:
 	@echo "Deploying to $(CHAIN) in $(ENV) environment..."
-	forge script script/Deploy.s.sol:DeployScript --broadcast --verify -vvvv --rpc-url $(CHAIN)
+	forge script script/Deploy.s.sol:DeployScript --broadcast --verify -vvvv --rpc-url $(CHAIN) --etherscan-api-key $(shell $(MAKE) etherscan-api-key)
 	$(MAKE) deploy-tag
 
 # Resume deployment on selected chain and environment
 deploy-resume:
 	@echo "Resuming deployment on $(CHAIN) in $(ENV) environment..."
-	forge script script/Deploy.s.sol:DeployScript --broadcast --verify --resume -vvvv --rpc-url $(CHAIN)
+	forge script script/Deploy.s.sol:DeployScript --broadcast --verify --resume -vvvv --rpc-url $(CHAIN) --etherscan-api-key $(shell $(MAKE) etherscan-api-key)
 	$(MAKE) deploy-tag
 
 deploy-tag:
@@ -113,6 +124,7 @@ help:
 	@echo "Available targets:"
 	@echo "  deploy         - Deploy contracts to selected chain and environment"
 	@echo "  deploy-resume  - Resume deployment on selected chain and environment"
+	@echo "  etherscan-api-key - Print the Etherscan API key for the selected chain"
 	@echo "  typechain      - Generate all TypeChain bindings"
 	@echo "  typechain-clean - Clean TypeChain artifacts"
 	@echo "  typechain-v5   - Generate TypeChain bindings for ethers-v5"
