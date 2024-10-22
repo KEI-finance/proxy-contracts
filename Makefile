@@ -106,7 +106,7 @@ sync:
 		echo "Template origin already exists."; \
 	fi
 	git fetch --all
-	git merge template/master
+	git merge --no-edit template/master --allow-unrelated-histories
 
 # Help target
 help:
