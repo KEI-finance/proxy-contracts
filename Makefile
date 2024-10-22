@@ -19,7 +19,7 @@ ifneq (,$(wildcard secrets/secrets.$(ENV).env))
 endif
 
 # Phony targets
-.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env
+.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync
 
 # Deploy to selected chain and environment
 deploy:
@@ -65,6 +65,7 @@ typechain: typechain-clean typechain-v6 typechain-v5 clean-typechain-bytecode
 # Prepare for publishing
 setup:
 	@echo "Setting up the project..."
+	
 	pnpm install
 	forge clean
 	forge install
@@ -89,6 +90,19 @@ print-env:
 	@echo "ENV: $(ENV)"
 	@echo "CHAIN: $(CHAIN)"
 
+# Sync with template/master
+sync:
+	@echo "Syncing with template/master..."
+	@echo "Checking if template origin exists..."
+	@if ! git remote | grep -q '^template$$'; then \
+		echo "Adding template origin..."; \
+		git remote add template https://github.com/kei-finance/contracts-template.git; \
+	else \
+		echo "Template origin already exists."; \
+	fi
+	git fetch --all
+	git merge template/master
+
 # Help target
 help:
 	@echo "Available targets:"
@@ -102,6 +116,7 @@ help:
 	@echo "  setup          - Setup the project"
 	@echo "  test           - Run tests"
 	@echo "  print-env      - Print current environment variables"
+	@echo "  sync           - Sync with template/master"
 	@echo "  help           - Show this help message"
 	@echo ""
 	@echo "Usage:"
