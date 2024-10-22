@@ -1,8 +1,12 @@
 {
-  "5": {
-    "owner": "0x921d360aD22A6D0289ce57fcb8250e299cB19EA3"
+  "develop": {
+    "5": {
+      "owner": "0x921d360aD22A6D0289ce57fcb8250e299cB19EA3"
+    }
   },
-  "42161": {
-    "owner": "0x5f700E17F6e3bcdB7549a519644447E875B5eaC7"
-  }
+  "production": {
+    "42161": {
+      "owner": "0x5f700E17F6e3bcdB7549a519644447E875B5eaC7"
+    }
+}
 }

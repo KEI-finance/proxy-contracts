@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+pragma solidity =0.8.20;
 
 import {Script, stdJson} from "forge-std/Script.sol";
 
@@ -8,13 +8,9 @@ import {ProxyAdmin} from "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.s
 import "./Base.s.sol";
 
 contract DeployScript is BaseScript {
-    using stdJson for string;
 
-    function run() public {
-        vm.startBroadcast(deployer);
-
+    function run() public record {
+        // deploy contracts here
         deploy("Empty.sol");
-
-        vm.stopBroadcast();
     }
 }
