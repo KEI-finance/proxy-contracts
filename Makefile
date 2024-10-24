@@ -19,7 +19,7 @@ ifneq (,$(wildcard secrets/secrets.$(ENV).env))
 endif
 
 # Phony targets
-.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync compile
+.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync compile forge-clean compile-clean clean
 
 define set_etherscan_api_key
     $(eval ETHERSCAN_API_KEY := $(shell \
@@ -60,6 +60,10 @@ deploy-tag:
 	git add broadcast
 	git commit -m "🚀🔥 DEPLOYED: $(CHAIN) network, $(ENV) environment 🌍💥"
 
+compile-clean:
+	@echo "Cleaning compiled utils..."
+	rm ./utils/**/*.js >> /dev/null || true
+
 # Clean TypeChain artifacts
 typechain-clean:
 	@echo "Cleaning TypeChain artifacts..."
@@ -85,7 +89,8 @@ typechain: typechain-clean typechain-v6 typechain-v5 clean-typechain-bytecode
 # Prepare for publishing
 setup:
 	@echo "Setting up the project..."
-	
+
+	$(MAKE) clean
 	pnpm install
 	forge clean
 	forge install
@@ -93,14 +98,19 @@ setup:
 	$(MAKE) typechain
 	$(MAKE) compile
 	forge-utils deployments
-	git add deployments.json
+	git add deployments.json > /dev/null || true
+
+
+forge-clean:
+	@echo "Cleaning forge build..."
+	forge clean
 
 # Clean build artifacts
 clean:
-	@echo "Cleaning build artifacts..."
-	forge clean
+	$(MAKE) forge-clean >> /dev/null || true
+	$(MAKE) compile-clean >> /dev/null || true
+	$(MAKE) typechain-clean >> /dev/null || true
 
-# Run tests
 test:
 	@echo "Running tests..."
 	forge test -vvv
@@ -135,6 +145,8 @@ help:
 	@echo "  typechain-v6   - Generate TypeChain bindings for ethers-v6"
 	@echo "  clean          - Clean build artifacts"
 	@echo "  setup          - Setup the project"
+	@echo "  forge-clean    - Clean forge build"
+	@echo "  compile-clean  - Clean compiled utils"
 	@echo "  compile        - Compile contracts"
 	@echo "  test           - Run tests"
 	@echo "  print-env      - Print current environment variables"
