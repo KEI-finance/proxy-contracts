@@ -10,7 +10,7 @@ abstract contract BaseScript is BaseDeployScript {
 
     DeployConfig internal config;
 
-    function setUp() public virtual {
+    function setUp() public virtual override {
         super.setUp();
         loadConfig();
     }
