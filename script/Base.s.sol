@@ -28,6 +28,8 @@ abstract contract BaseScript is BaseDeployScript {
             key = ".develop.11155111"; // use sepolia as a fallback
         }
 
-        salt = bytes32(json.readUint(string.concat(key, ".salt")));
+        if (!vm.keyExists(json, string.concat(key, ".salt"))) {
+            salt = bytes32(json.readUint(string.concat(key, ".salt")));
+        }
     }
 }
