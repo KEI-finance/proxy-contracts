@@ -25,7 +25,7 @@
   "devDependencies": {
     "@typechain/ethers-v5": "^11.1.2",
     "@typechain/ethers-v6": "^0.5.1",
-    "forge-utils": "^0.2.2",
+    "forge-utils": "^0.2.3",
     "typechain": "^8.3.2",
     "typescript": "^5.2.2"
   },
