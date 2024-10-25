@@ -20,14 +20,7 @@
     }
   },
   "scripts": {
-    "prepublish": "make",
-    "lint": "gts lint",
-    "clean": "gts clean",
-    "compile": "tsc",
-    "fix": "gts fix",
-    "prepare": "npm run compile",
-    "pretest": "npm run compile",
-    "posttest": "npm run lint"
+    "prepublish": "make"
   },
   "devDependencies": {
     "@typechain/ethers-v5": "^11.1.2",
