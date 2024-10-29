@@ -17,6 +17,11 @@
     "./deployments.json": {
       "import": "./deployments.json",
       "require": "./deployments.json"
+    },
+    ".": {
+      "import": "./utils/index.js",
+      "require": "./utils/index.js",
+      "typings": "./utils/index.ts"
     }
   },
   "scripts": {
