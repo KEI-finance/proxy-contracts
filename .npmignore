@@ -9,3 +9,4 @@ lib/**/*
 !src/**/*
 !broadcast/**/*
 !deployments.json
+!utils/**/*
