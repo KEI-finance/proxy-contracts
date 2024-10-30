@@ -39,6 +39,6 @@
     "ethers": ">=5.0.0"
   },
   "dependencies": {
-    "forge-utils": "^0.2.8"
+    "forge-utils": "^0.2.9"
   }
 }
