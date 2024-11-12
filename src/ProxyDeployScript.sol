@@ -86,9 +86,9 @@ contract ProxyDeployScript is Script {
 
         if (proxy.code.length == 0) {
             new TransparentUpgradeableProxy{salt: salt}(EMPTY_ADDRESS, sender, "");
-            upgradeProxy(proxy, implementation, upgradeData);
-        } else {
             upgradeProxy(proxy, implementation, initializationData);
+        } else {
+            upgradeProxy(proxy, implementation, upgradeData);
         }
 
         transferProxyOwnership(proxy, proxyOwner);
