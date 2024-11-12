@@ -82,10 +82,7 @@ contract ProxyDeployScript is Script {
         bytes memory upgradeData
     ) public returns (address proxy) {
         (, address sender,) = vm.readCallers();
-        bytes memory creationCode = type(TransparentUpgradeableProxy).creationCode;
-        bytes memory bytecode = abi.encodePacked(creationCode, abi.encode(EMPTY_ADDRESS, sender, ""));
-
-        proxy = vm.computeCreate2Address(salt, keccak256(bytecode));
+        proxy = getProxyAddress(salt);
 
         if (proxy.code.length == 0) {
             new TransparentUpgradeableProxy{salt: salt}(EMPTY_ADDRESS, sender, "");
