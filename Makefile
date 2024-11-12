@@ -72,12 +72,12 @@ typechain-clean:
 # Generate TypeChain bindings for ethers-v6
 typechain-v6:
 	@echo "Generating TypeChain bindings for ethers-v6..."
-	npx typechain --target ethers-v6 --out-dir typechain/ethers-v6 "./out/*.sol/*.json" --show-stack-traces
+	npx typechain --target ethers-v6 --out-dir typechain/ethers-v6 "./out/*.sol/*.json" --show-stack-traces >> /dev/null || true
 
 # Generate TypeChain bindings for ethers-v5
 typechain-v5:
 	@echo "Generating TypeChain bindings for ethers-v5..."
-	npx typechain --target ethers-v5 --out-dir typechain/ethers-v5 "./out/*.sol/*.json" --show-stack-traces
+	npx typechain --target ethers-v5 --out-dir typechain/ethers-v5 "./out/*.sol/*.json" --show-stack-traces >> /dev/null || true
 
 clean-typechain-bytecode:
 	@echo "Cleaning TypeChain bytecode..."

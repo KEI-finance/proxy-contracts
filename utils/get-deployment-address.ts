@@ -1,6 +1,10 @@
-import deployments from "../deployments.json";
-import { getDeployment as getForgeDeployment } from "forge-utils";
+import deployments from '../deployments.json';
+import {getDeploymentAddress as getForgeDeploymentAddress} from 'forge-utils';
 
-export const getDeploymentAddress = (chainId: string | number, env?: string) => {
-    return getForgeDeployment(deployments, chainId, env)
-}
+export const getDeploymentAddress = (
+  name: string,
+  chainId: string | number,
+  env?: string,
+) => {
+  return getForgeDeploymentAddress(deployments, name, chainId, env);
+};

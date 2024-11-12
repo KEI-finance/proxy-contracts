@@ -109,5 +109,8 @@
   "include": [
     "typechain",
     "utils/**/*.ts"
+  ],
+  "exclude": [
+    "utils/**/*.js"
   ]
 }

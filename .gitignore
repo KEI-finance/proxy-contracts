@@ -14,7 +14,11 @@ docs/
 
 # Dotenv file
 .env
+.env.secrets
 
 typechain*
 
-*.js
+utils/**/*.js
+src/**/*.js
+
+!.prettierrc.js

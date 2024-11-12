@@ -1,1 +1,1 @@
-export * from "./get-deployment-address";
+export * from './get-deployment-address';
