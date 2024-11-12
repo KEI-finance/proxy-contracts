@@ -8,18 +8,14 @@ abstract contract BaseScript is BaseDeployScript {
     using stdJson for string;
 
     struct DeployConfig {
+        // TODO update this
         address owner;
     }
-    // TODO complete this
 
     DeployConfig internal config;
 
-    function setUp() public virtual override {
-        super.setUp();
-        loadConfig();
-    }
-
-    function loadConfig() internal virtual {
-        (string memory key, string memory json) = loadJson();
+    function loadConfig(string memory key, string memory json) internal virtual override {
+        // TODO parse the config here to the config struct
+        config.owner = json.readAddress(string.concat(key, ".owner"));
     }
 }
