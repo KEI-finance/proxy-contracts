@@ -8,9 +8,7 @@ import {ProxyAdmin} from "@openzeppelin/contracts/proxy/transparent/ProxyAdmin.s
 import "./Base.s.sol";
 
 contract DeployScript is BaseScript {
-
     function run() public record {
-        // deploy contracts here
-        deploy("Empty.sol");
+        deploy("Empty");
     }
 }
