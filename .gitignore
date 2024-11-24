@@ -25,3 +25,6 @@ utils/**/*.js
 src/**/*.js
 
 !.prettierrc.js
+
+# soldeer dependencies
+dependencies/
