@@ -1,14 +1,16 @@
 # Makefile for deploying to multiple chains and environments
 
 # Environment variables
-ENV ?= develop
-CHAIN ?= sepolia
-
 # Source .env file globally if it exists
 ifneq (,$(wildcard .env))
     include .env
     export
 endif
+
+ENV ?= develop
+CHAIN ?= sepolia
+ETHERSCAN_API_KEY ?= ""
+INFURA_API_KEY ?= ""
 
 # Decode secrets file if it exists
 ifneq (,$(wildcard secrets/secrets.$(ENV).env))
