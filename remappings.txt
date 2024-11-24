@@ -1,7 +1,6 @@
 @kei-fi-testing-lib-1.0.0/=dependencies/@kei-fi-testing-lib-1.0.0/
-@kei.fi/testing-lib/=lib/testing-lib/src/
+@kei.fi/testing-lib/=dependencies/@kei-fi-testing-lib-1.0.0/src/
 @openzeppelin-contracts-5.1.0/=dependencies/@openzeppelin-contracts-5.1.0/
-@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
-erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/
+@openzeppelin/contracts/=dependencies/@openzeppelin-contracts-5.1.0/
 forge-std-1.9.4/=dependencies/forge-std-1.9.4/
 forge-std/=dependencies/forge-std-1.9.4/src/
