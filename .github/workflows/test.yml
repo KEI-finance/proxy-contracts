@@ -35,7 +35,7 @@ jobs:
       - name: Run Forge build
         run: |
           forge --version
-          forge install
+          forge soldeer install --clean
           forge build --sizes
         id: build
 
