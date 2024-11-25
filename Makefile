@@ -141,7 +141,7 @@ sync-foundry:
 
 soldeer-publish:
 	@VERSION=$$(node -p "require('./package.json').version"); \
-	PACKAGE=$$(node -p "require('./package.json').name.replace(/[\.\-]/g, '-')"); \
+	PACKAGE=$$(node -p "require('./package.json').name.replace(/[\.\-\/]/g, '-')"); \
 	if soldeer push $$PACKAGE~$$VERSION; then \
 		echo "Successfully published $$PACKAGE version $$VERSION"; \
 	else \
