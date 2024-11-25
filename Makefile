@@ -21,7 +21,7 @@ ifneq (,$(wildcard secrets/secrets.$(ENV).env))
 endif
 
 # Phony targets
-.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync compile forge-clean compile-clean clean
+.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync compile forge-clean compile-clean clean publish
 
 define set_etherscan_api_key
     $(eval ETHERSCAN_API_KEY := $(shell \
@@ -139,7 +139,7 @@ sync:
 sync-foundry:
 	foundryup -v nightly-d14a7b44fc439407d761fccc4c1637216554bbb6
 
-publish:
+soldeer-publish:
 	@VERSION=$$(node -p "require('./package.json').version"); \
 	PACKAGE=$$(node -p "require('./package.json').name.replace(/[\.\-]/g, '-')"); \
 	if soldeer push $$PACKAGE~$$VERSION; then \
