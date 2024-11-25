@@ -21,7 +21,7 @@ ifneq (,$(wildcard secrets/secrets.$(ENV).env))
 endif
 
 # Phony targets
-.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync compile forge-clean compile-clean clean publish
+.PHONY: deploy deploy-resume typechain typechain-clean typechain-v5 typechain-v6 prepublish setup help test print-env sync compile forge-clean compile-clean clean soldeer-publish
 
 define set_etherscan_api_key
     $(eval ETHERSCAN_API_KEY := $(shell \
@@ -163,6 +163,7 @@ help:
 	@echo "  compile-clean  - Clean compiled utils"
 	@echo "  compile        - Compile contracts"
 	@echo "  test           - Run tests"
+	@echo "  soldeer-publish - Publish to Soldeer"
 	@echo "  print-env      - Print current environment variables"
 	@echo "  sync           - Sync with template/master"
 	@echo "  help           - Show this help message"
