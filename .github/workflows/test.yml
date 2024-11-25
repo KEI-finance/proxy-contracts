@@ -8,6 +8,7 @@ on:
 
 env:
   FOUNDRY_PROFILE: ci
+  INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,14 +27,28 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           submodules: recursive
 
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
-          version: nightly
+          version: nightly-d14a7b44fc439407d761fccc4c1637216554bbb6
 
       - name: Run Forge build
         run: |
           forge --version
+          forge soldeer install --clean
           forge build --sizes
         id: build
 
@@ -83,4 +98,3 @@ jobs:
           fi
           
           echo "Repository is up to date with the template."
-

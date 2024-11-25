@@ -1,14 +1,16 @@
 # Makefile for deploying to multiple chains and environments
 
 # Environment variables
-ENV ?= develop
-CHAIN ?= sepolia
-
 # Source .env file globally if it exists
 ifneq (,$(wildcard .env))
     include .env
     export
 endif
+
+ENV ?= develop
+CHAIN ?= sepolia
+ETHERSCAN_API_KEY ?= ""
+INFURA_API_KEY ?= ""
 
 # Decode secrets file if it exists
 ifneq (,$(wildcard secrets/secrets.$(ENV).env))
@@ -133,6 +135,9 @@ sync:
 	fi
 	git fetch template master
 	git merge --no-edit template/master --allow-unrelated-histories
+
+sync-foundry:
+	foundryup -v nightly-d14a7b44fc439407d761fccc4c1637216554bbb6
 
 # Help target
 help:
