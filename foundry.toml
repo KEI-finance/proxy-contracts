@@ -31,5 +31,6 @@ arbitrum_sepolia = "https://arbitrum-sepolia.infura.io/v3/${INFURA_API_KEY}"
 
 [dependencies]
 "@kei-fi-testing-lib" = "1.0.0"
-"@openzeppelin-contracts" = "5.1.0"
+"@openzeppelin-contracts" = "5.0.2"
 forge-std = "1.9.4"
+"@openzeppelin-contracts-upgradeable" = "5.0.2"
