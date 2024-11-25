@@ -56,6 +56,10 @@ jobs:
         run: |
           make test
         id: test
+
+      - name: Publish
+        run: make publish
+        id: publish
   
   check-template:
     name: Check Template

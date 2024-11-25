@@ -139,6 +139,15 @@ sync:
 sync-foundry:
 	foundryup -v nightly-d14a7b44fc439407d761fccc4c1637216554bbb6
 
+publish:
+	@VERSION=$$(node -p "require('./package.json').version"); \
+	PACKAGE=$$(node -p "require('./package.json').name.replace(/[\.\-]/g, '-')"); \
+	if soldeer push $$PACKAGE~$$VERSION; then \
+		echo "Successfully published $$PACKAGE version $$VERSION"; \
+	else \
+		echo "Failed to publish $$PACKAGE version $$VERSION"; \
+	fi
+
 # Help target
 help:
 	@echo "Available targets:"
