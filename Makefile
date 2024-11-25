@@ -140,13 +140,16 @@ sync-foundry:
 	foundryup -v nightly-d14a7b44fc439407d761fccc4c1637216554bbb6
 
 soldeer-publish:
-	@VERSION=$$(node -p "require('./package.json').version"); \
-	PACKAGE=$$(node -p "require('./package.json').name.replace(/[\.\-\/]/g, '-')"); \
-	if soldeer push $$PACKAGE~$$VERSION; then \
+	@cp package.json ./src/package.json && \
+	cp README.md ./src/README.md && \
+	VERSION=$$(node -p "require('./src/package.json').version"); \
+	PACKAGE=$$(node -p "require('./src/package.json').name.replace(/[\.\-\/]/g, '-')"); \
+	if soldeer push $$PACKAGE~$$VERSION src/; then \
 		echo "Successfully published $$PACKAGE version $$VERSION"; \
 	else \
 		echo "Failed to publish $$PACKAGE version $$VERSION"; \
-	fi
+	fi; \
+	rm ./src/package.json ./src/README.md;
 
 # Help target
 help:

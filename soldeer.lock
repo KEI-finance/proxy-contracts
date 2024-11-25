@@ -1,9 +1,9 @@
 [[dependencies]]
 name = "@kei-fi-testing-lib"
-version = "1.0.0"
-url = "https://soldeer-revisions.s3.amazonaws.com/@kei-fi-testing-lib/1_0_0_24-11-2024_23:33:39_testing-lib.zip"
-checksum = "3375e5e53d0979d3d4f14ebe35b199f6aa4d30f96274c4b1a33e576af7324769"
-integrity = "50a53ecb512520835abfe70e5fe0d276530673e476b388f61a8fa497dae440ea"
+version = "1.0.2"
+url = "https://soldeer-revisions.s3.amazonaws.com/@kei-fi-testing-lib/1_0_2_25-11-2024_02:20:47_src.zip"
+checksum = "d1a83e33b84c2750a31ca324061ddb740a8c33747bde94ebbfc7e14cb75e1062"
+integrity = "bb132ef68087738dd6c429f7cf7b0e7598d7653ca8cd663c58759b2819101abb"
 
 [[dependencies]]
 name = "@openzeppelin-contracts"

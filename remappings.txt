@@ -1,5 +1,5 @@
-@kei-fi-testing-lib-1.0.0/=dependencies/@kei-fi-testing-lib-1.0.0/
-@kei.fi/testing-lib/=dependencies/@kei-fi-testing-lib-1.0.0/src/
+@kei-fi-testing-lib-1.0.2/=dependencies/@kei-fi-testing-lib-1.0.2/
+@kei.fi/testing-lib/=dependencies/@kei-fi-testing-lib-1.0.2/
 @openzeppelin-contracts-5.0.2/=dependencies/@openzeppelin-contracts-5.0.2/
 @openzeppelin-contracts-upgradeable-5.0.2/=dependencies/@openzeppelin-contracts-upgradeable-5.0.2/
 @openzeppelin/contracts-upgradeable/=dependencies/@openzeppelin-contracts-upgradeable-5.0.2/

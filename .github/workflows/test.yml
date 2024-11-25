@@ -57,9 +57,20 @@ jobs:
           make test
         id: test
 
+      - name: Publish to NPM
+        if: github.ref == 'refs/heads/master'
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          npm publish --access public || echo "Failed to publish to NPM (possibly already published)"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        continue-on-error: true
+
       # - name: Soldeer Publish
+      #   if: github.ref == 'refs/heads/master'
       #   run: make soldeer-publish
       #   id: soldeer-publish
+      #   continue-on-error: true
   
   check-template:
     name: Check Template
