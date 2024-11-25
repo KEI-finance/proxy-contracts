@@ -28,3 +28,5 @@ src/**/*.js
 
 # soldeer dependencies
 dependencies/
+
+.DS_Store
