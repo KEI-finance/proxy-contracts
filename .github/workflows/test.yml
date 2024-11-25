@@ -57,9 +57,9 @@ jobs:
           make test
         id: test
 
-      - name: Soldeer Publish
-        run: make soldeer-publish
-        id: soldeer-publish
+      # - name: Soldeer Publish
+      #   run: make soldeer-publish
+      #   id: soldeer-publish
   
   check-template:
     name: Check Template
