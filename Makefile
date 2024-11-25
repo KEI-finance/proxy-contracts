@@ -137,7 +137,7 @@ sync:
 	git merge --no-edit template/master --allow-unrelated-histories
 
 sync-foundry:
-  foundryup -v nightly-d14a7b44fc439407d761fccc4c1637216554bbb6
+	foundryup -v nightly-d14a7b44fc439407d761fccc4c1637216554bbb6
 
 # Help target
 help:
