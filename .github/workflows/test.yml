@@ -27,6 +27,19 @@ jobs:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
           submodules: recursive
 
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
@@ -85,4 +98,3 @@ jobs:
           fi
           
           echo "Repository is up to date with the template."
-
